@@ -21,7 +21,7 @@
             <option value="" selected>Please choose a map layer.</option>
             <option value="unitedstates">Modified Basemap</option>
             <option value="guns">U.S. Gun Violence</option>
-            <option value="gunsbase">Basemap & Gun Violence</option>
+            <option value="gunbase">Basemap & Gun Violence</option>
             <option value="nonbinary">Non-binary Theme</option>
           </select>
     </div>
@@ -74,22 +74,22 @@
             'source': 'guns-tiles'
         });
 
-        map.addSource('gunsbase-tiles', {
+        map.addSource('gunbase-tiles', {
             'type': 'raster',
             'tiles': [
-                '../tiles/gunsbase/{z}/{x}/{y}.png'
+                '../tiles/gunbase/{z}/{x}/{y}.png'
             ],
             'tileSize': 256,
             'attribution': 'Map tiles designed by Jun Nguyen</a>'
         });
 
         map.addLayer({
-            'id': 'gunsbase',
+            'id': 'gunbase',
             'type': 'raster',
             'layout': {
                 'visibility': 'none'
             },
-            'source': 'gunsbase-tiles'
+            'source': 'gunbase-tiles'
         });
 
         map.addSource('nonbinary-tiles', {
@@ -118,6 +118,10 @@
         if (visible === 'visible') {
             map.setLayoutProperty(selection, 'visibility', 'none');
         } else {
+            map.setLayoutProperty('unitedstates', 'visibility', 'none');
+            map.setLayoutProperty('guns', 'visibility', 'none');
+            map.setLayoutProperty('gunbase', 'visibility', 'none');
+            map.setLayoutProperty('nonbinary', 'visibility', 'none');
             map.setLayoutProperty(selection, 'visibility', 'visible');
         }
     });
