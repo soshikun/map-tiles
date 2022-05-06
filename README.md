@@ -1,7 +1,9 @@
 # Maps & Tiles
 
 This web map contains four layers: a modified basemap, a thematic layer, the modified basemap
-and thematic layer combined, and a custom themed basemap. To view the web map, click [here](https://soshikun.github.io/map-tiles/)!
+and thematic layer combined, and a custom themed basemap. 
+
+To view the web map, click [here](https://soshikun.github.io/map-tiles/)!
 
 ## Examined Geographic Area - United States
 The examined geographic area for this web map is the United States. This is because the dataset used
