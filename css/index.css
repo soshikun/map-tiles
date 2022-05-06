@@ -11,6 +11,15 @@ h1 {
     padding-left: 20px;
 }
 
+h2 {
+    font-size: 18px;
+}
+
+select {
+    padding: 10px;
+    border-radius: 10px;
+}
+
 .map-overlay {
     position: absolute;
     bottom: 0;
@@ -49,14 +58,12 @@ input:last-child {
     margin-right: 20px;
     right: 0;
     top: 0;
-    left: auto; 
+    left: auto;
     bottom: auto;
     padding: 20px;
-}
-
-.map-options {
     display: block;
     font-size: 20px;
+    border-radius: 5px;
 }
 
 .map-description, .sources {

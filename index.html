@@ -23,6 +23,7 @@
         </p>
     </div>
     <div class="map-overlay map-options">
+        <h2>Change the selection to<br>view a different layer!</h2>
         <select id="map-select">
             <option value="" selected>Please choose a map layer.</option>
             <option value="unitedstates">Modified Basemap</option>
@@ -43,8 +44,8 @@
         style: 'mapbox://styles/mapbox/dark-v10',
         minZoom: 1,
         maxZoom: 10,
-        zoom: 3.6,
-        center: [-98, 43]
+        zoom: 4,
+        center: [-98, 41.8]
     });
 
     map.on('load', () => { //simplifying the function statement: arrow with brackets to define a function
