@@ -7,7 +7,6 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.5.0/mapbox-gl.js"></script>
     <title>Maps and Tiles</title>
     <link href="css/index.css" rel="stylesheet">
-    <!-- <script src="js/index.js"></script> -->
 </head>
 <body>
     <div id="map" class="mapboxgl-map"></div>
@@ -36,7 +35,7 @@
     <div class="map-overlay hidden" id="legend"></div>
 </body>
 
-<script>
+<script type="text/javascript">
     mapboxgl.accessToken = 'pk.eyJ1IjoiamFrb2J6aGFvIiwiYSI6ImNpcms2YWsyMzAwMmtmbG5icTFxZ3ZkdncifQ.P9MBej1xacybKcDN_jehvw';
 
     let map = new mapboxgl.Map({
@@ -64,7 +63,9 @@
             'layout': {
                 'visibility': 'none'
             },
-            'source': 'basemap-tiles'
+            'source': 'basemap-tiles',
+            'minzoom': 1,
+            'maxzoom': 10
         });
 
         map.addSource('guns-tiles', {
@@ -82,7 +83,9 @@
             'layout': {
                 'visibility': 'none'
             },
-            'source': 'guns-tiles'
+            'source': 'guns-tiles',
+            'minzoom': 1,
+            'maxzoom': 10
         });
 
         map.addSource('gunbase-tiles', {
@@ -100,7 +103,9 @@
             'layout': {
                 'visibility': 'none'
             },
-            'source': 'gunbase-tiles'
+            'source': 'gunbase-tiles',
+            'minzoom': 1,
+            'maxzoom': 10
         });
 
         map.addSource('nonbinary-tiles', {
@@ -118,21 +123,23 @@
             'layout': {
                 'visibility': 'none'
             },
-            'source': 'nonbinary-tiles'
+            'source': 'nonbinary-tiles',
+            'minzoom': 1,
+            'maxzoom': 10
         });
     });
 
     let legend = document.getElementById("legend");
 
-    const fatalities = [1, 24.5, 49], 
-    colors = ['#84f0f0', '#84f0f0', '#84f0f0'], 
+    const fatalities = [1, 24.5, 49],
+    colors = ['#84f0f0', '#84f0f0', '#84f0f0'],
     colors2 = ['#ffba7a', '#ef350b', '#7a0000'],
     radii = [5, 10, 15];
 
     document.getElementById("map-select").addEventListener("change", () => {
         let selection = document.getElementById("map-select").value;
         let visible = map.getLayoutProperty(selection, 'visibility');
-        
+
         if (visible === 'visible') {
             map.setLayoutProperty(selection, 'visibility', 'none');
         } else {
