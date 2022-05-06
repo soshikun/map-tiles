@@ -13,8 +13,15 @@
     <div id="map" class="mapboxgl-map"></div>
     <div class="map-overlay" id="features">
         <h1>Maps and Tiles</h1>
-        <p class="map-description"></p>
-        <p class="sources"></p>
+        <p class="map-description">
+            By changing the map layer selection, you can find a modified version of the dark monochrome basemap provided by Mapbox.
+            Additionally, there is also a thematic layer that visualize civilian fatalies in mass shootings across the United States.
+            The third option displays both the thematic layer and the modified basemap together. And finally, the last option is a custom-made
+            map theme to represent non-binary people.
+        </p>
+        <p class="sources">
+            Source: <a href="https://github.com/StanfordGeospatialCenter/MSA">Stanford Geospatial Center</a>
+        </p>
     </div>
     <div class="map-overlay map-options">
         <select id="map-select">
@@ -25,6 +32,8 @@
             <option value="nonbinary">Non-binary Theme</option>
           </select>
     </div>
+
+    <div class="map-overlay hidden" id="legend"></div>
 </body>
 
 <script>
@@ -33,6 +42,8 @@
     let map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/dark-v10',
+        minZoom: 1,
+        maxZoom: 10,
         zoom: 3.6,
         center: [-98, 43]
     });
@@ -111,6 +122,13 @@
         });
     });
 
+    let legend = document.getElementById("legend");
+
+    const fatalities = [1, 24.5, 49], 
+    colors = ['#84f0f0', '#84f0f0', '#84f0f0'], 
+    colors2 = ['#ffba7a', '#ef350b', '#7a0000'],
+    radii = [5, 10, 15];
+
     document.getElementById("map-select").addEventListener("change", () => {
         let selection = document.getElementById("map-select").value;
         let visible = map.getLayoutProperty(selection, 'visibility');
@@ -123,7 +141,41 @@
             map.setLayoutProperty('gunbase', 'visibility', 'none');
             map.setLayoutProperty('nonbinary', 'visibility', 'none');
             map.setLayoutProperty(selection, 'visibility', 'visible');
+            if (selection == 'guns') {
+                legend.classList.remove("hidden");
+                var labels = ['<strong>Civilian Fatalities</strong>'], vbreak;
+                for (var i = 0; i < fatalities.length; i++) {
+                    vbreak = fatalities[i];
+                    var dot_radius = 2 * radii[i];
+                    labels.push(
+                        '<p class="break"><i class="dot" style="background:' + colors[i] + '; width: ' + dot_radius +
+                        'px; height: ' +
+                        dot_radius + 'px; "></i> <span class="dot-label" style="top: ' + dot_radius / 2 + 'px;">' + vbreak +
+                        '</span></p>');
+                }
+                const source =
+                    '<p style="text-align: right; font-size:10pt">Source: <a href="https://github.com/StanfordGeospatialCenter/MSA">Stanford Geospatial Center</a></p>';
+                legend.innerHTML = labels.join('') + source;
+            } else if (selection == 'gunbase') {
+                legend.classList.remove("hidden");
+                var labels = ['<strong>Civilian Fatalities</strong>'], vbreak;
+                for (var i = 0; i < fatalities.length; i++) {
+                    vbreak = fatalities[i];
+                    var dot_radius = 2 * radii[i];
+                    labels.push(
+                        '<p class="break"><i class="dot" style="background:' + colors2[i] + '; width: ' + dot_radius +
+                        'px; height: ' +
+                        dot_radius + 'px; "></i> <span class="dot-label" style="top: ' + dot_radius / 2 + 'px;">' + vbreak +
+                        '</span></p>');
+                }
+                const source =
+                    '<p style="text-align: right; font-size:10pt">Source: <a href="https://github.com/StanfordGeospatialCenter/MSA">Stanford Geospatial Center</a></p>';
+                legend.innerHTML = labels.join('') + source;
+            } else {
+                legend.classList.add("hidden");
+            }
         }
     });
+
 </script>
 </html>
